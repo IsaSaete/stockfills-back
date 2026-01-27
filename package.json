@@ -1,0 +1,21 @@
+{
+  "name": "stockfils-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist",
+  "scripts": {
+    "build": "tsc",
+    "build:dev": "tsc --watch",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "typescript": "^5.9.3"
+  }
+}
