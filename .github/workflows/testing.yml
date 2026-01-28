@@ -1,0 +1,22 @@
+name: Testing
+
+on: push
+
+env:
+  ALLOWED_ORIGIN_PATTERNS: ${{ vars.ALLOWED_ORIGIN_PATTERNS}}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+jobs:
+  test:
+    name: Tests passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇ Git checkout
+        uses: actions/checkout@v4
+
+      - name: 💾 Install modules
+        run: npm ci
+
+      - name: 🧪 Testing
+        run: npm test
