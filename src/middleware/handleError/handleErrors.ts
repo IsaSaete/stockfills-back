@@ -3,7 +3,7 @@ import ServerError from "../../server/serverError/serverError.js";
 import { NextFunction, Request, Response } from "express";
 import statusCode from "../../utils/globals/globals.js";
 
-const debug = createDebug(process.env.DEBUG || "stockfils:server:error");
+const debug = createDebug("stockfils:server:error");
 
 const handleErrors = (
   error: ServerError,
