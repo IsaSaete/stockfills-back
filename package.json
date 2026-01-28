@@ -8,10 +8,13 @@
     "build:dev": "tsc --watch",
     "start": "node .",
     "start:dev": "node . --watch",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest",
+    "test:dev": "jest --watchAll",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
-  "author": "",
+  "author": "Isabel Sáenz",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
@@ -20,12 +23,18 @@
     "@eslint/js": "^9.39.2",
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^25.0.10",
+    "@types/supertest": "^6.0.3",
     "eslint": "^9.39.2",
     "globals": "^17.2.0",
     "husky": "^9.1.7",
+    "jest": "^30.2.0",
     "lint-staged": "^16.2.7",
     "prettier": "3.8.1",
+    "ts-jest": "^29.4.6",
+    "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0"
   },
@@ -33,6 +42,8 @@
     "chalk": "^5.6.2",
     "debug": "^4.4.3",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "supertest": "^7.2.2"
   }
 }
