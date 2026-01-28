@@ -6,16 +6,24 @@
   "scripts": {
     "build": "tsc",
     "build:dev": "tsc --watch",
-    "start": "node ."
+    "start": "node .",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@commitlint/cli": "^20.3.1",
+    "@commitlint/config-conventional": "^20.3.1",
+    "@eslint/js": "^9.39.2",
     "@types/node": "^25.0.10",
+    "eslint": "^9.39.2",
+    "globals": "^17.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "typescript": "^5.9.3"
+    "prettier": "3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0"
   }
 }
