@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import checkHealthStatus from "../middleware/checkHealthStatus.js";
+import checkHealthStatus from "../middleware/checkHealthStatus/checkHealthStatus.js";
 
 const app = express();
 
