@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ServerError from "../../server/serverError/serverError.js";
 import handleErrors from "./handleErrors.js";
+import statusCode from "../../utils/globals/globals.js";
 
 describe("Given the handleErrors middleware", () => {
   const req = {} as Request;
@@ -15,7 +16,7 @@ describe("Given the handleErrors middleware", () => {
   });
 
   describe("When it receives a response and a '404, Endpoint not found' error", () => {
-    const error = new ServerError(404, "Endpoint not found");
+    const error = new ServerError(statusCode.NOT_FOUND, "Endpoint not found");
 
     test("Then it should call the response's method status with '404' status code", () => {
       handleErrors(error, req, res as Response, next);
@@ -34,7 +35,7 @@ describe("Given the handleErrors middleware", () => {
     const error = new Error("Can't read properties of undefined");
 
     test("Then it should call the response's method with '500' status code", () => {
-      const expectedStatus = 500;
+      const expectedStatus = statusCode.INTERNAL_SERVER_ERROR;
 
       handleErrors(error as ServerError, req, res as Response, next);
 
