@@ -17,5 +17,19 @@ class AuthController implements AuthControllerStructure {
       next(error);
     }
   };
+
+  public loginUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const user = await authService.loginUser(req.body);
+
+      res.status(statusCode.OK).json(user);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 export default AuthController;

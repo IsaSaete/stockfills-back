@@ -14,6 +14,11 @@ export interface IUserCreate {
   name: string;
 }
 
+export interface UserLogin {
+  email: string;
+  password: string;
+}
+
 export type AuthResponseBody = {
   token: string;
   user: {
