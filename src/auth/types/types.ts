@@ -13,3 +13,16 @@ export interface IUserCreate {
   password: string;
   name: string;
 }
+
+export type AuthResponseBody = {
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  };
+};
+
+export interface ResponseBodyError {
+  error: string;
+}
