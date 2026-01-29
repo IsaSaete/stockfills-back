@@ -20,7 +20,13 @@ describe("Given the loginUser service", () => {
 
   describe("When it receives valid credentials and the user exists", () => {
     test("Then it should return token and user data", async () => {
-      (User.findOne as jest.Mock).mockResolvedValue({
+      const mockFindOne = {
+        select: jest.fn().mockReturnThis(),
+      };
+
+      (User.findOne as jest.Mock).mockReturnValue(mockFindOne);
+
+      mockFindOne.select.mockResolvedValue({
         ...fanflinsUserRegistered,
         comparePassword: jest.fn().mockResolvedValue(true),
       });
@@ -40,7 +46,11 @@ describe("Given the loginUser service", () => {
 
   describe("When it receives credentials for a non-existent user", () => {
     test("Then it should throw a 401 ServerError", async () => {
-      (User.findOne as jest.Mock).mockResolvedValue(null);
+      const mockSelect = jest.fn().mockResolvedValue(null);
+
+      (User.findOne as jest.Mock).mockReturnValue({
+        select: mockSelect,
+      });
 
       await expect(loginUser(fanflinsNewUser)).rejects.toThrow(ServerError);
       await expect(loginUser(fanflinsNewUser)).rejects.toMatchObject({
@@ -52,9 +62,14 @@ describe("Given the loginUser service", () => {
 
   describe("When it receives wrong password for an existing user", () => {
     test("Then it should throw a 401 ServerError", async () => {
-      (User.findOne as jest.Mock).mockResolvedValue({
+      const mockComparePassword = jest.fn().mockResolvedValue(false);
+      const mockSelect = jest.fn().mockResolvedValue({
         ...fanflinsUserRegistered,
-        comparePassword: jest.fn().mockResolvedValue(false),
+        comparePassword: mockComparePassword,
+      });
+
+      (User.findOne as jest.Mock).mockReturnValue({
+        select: mockSelect,
       });
 
       await expect(loginUser(fanflinsNewUser)).rejects.toThrow(ServerError);

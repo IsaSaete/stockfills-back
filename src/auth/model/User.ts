@@ -27,13 +27,19 @@ const userSchema = new Schema<IUserStructure>(
   { timestamps: true },
 );
 
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    return;
+    return next();
   }
 
   this.password = await bcrypt.hash(this.password, 12);
+
+  next();
 });
+
+userSchema.statics.findByEmailWithPassword = function (email: string) {
+  return this.findOne({ email }).select("+password");
+};
 
 userSchema.methods.comparePassword = async function (
   candidatePassword: string,
