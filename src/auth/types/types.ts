@@ -2,7 +2,7 @@ export interface IUserStructure {
   _id: string;
   email: string;
   password: string;
-  name: string;
+  username: string;
   createdAt?: Date;
   updatedAt?: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
@@ -11,7 +11,7 @@ export interface IUserStructure {
 export interface IUserCreate {
   email: string;
   password: string;
-  name: string;
+  username: string;
 }
 
 export interface UserLogin {
@@ -24,7 +24,7 @@ export type AuthResponseBody = {
   user: {
     id: string;
     email: string;
-    name: string;
+    username: string;
   };
 };
 

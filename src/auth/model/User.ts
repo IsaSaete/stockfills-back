@@ -17,7 +17,7 @@ const userSchema = new Schema<IUserStructure>(
       minlength: 6,
       select: false,
     },
-    name: {
+    username: {
       type: String,
       required: true,
       trim: true,
