@@ -5,12 +5,15 @@ import checkHealthStatus from "../middleware/checkHealthStatus/checkHealthStatus
 import handleErrors from "../middleware/handleError/handleErrors.js";
 import handleEndpointNotFound from "../middleware/handleEndpointNotFound/handleEndpointNotFound.js";
 import authRouter from "../auth/router/authRouter.js";
+import handleCors from "../middleware/handleCors/handleCors.js";
 
 const app = express();
 
 app.disable("x-powered-by");
 
 app.use(morgan("dev"));
+
+app.use(handleCors);
 
 app.use(express.json());
 
