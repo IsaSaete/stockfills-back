@@ -38,7 +38,7 @@ describe("Given the loginUser service", () => {
       expect(loggedUser.user).toMatchObject({
         id: fanflinsUserRegistered._id,
         email: fanflinsUserRegistered.email,
-        name: fanflinsUserRegistered.name,
+        username: fanflinsUserRegistered.username,
       });
       expect(loggedUser.token).toBe("fake-token");
     });

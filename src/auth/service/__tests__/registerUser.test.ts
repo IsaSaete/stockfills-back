@@ -28,7 +28,7 @@ describe("Given the registerUser service", () => {
       expect(registeredUser.user).toMatchObject({
         id: fanflinsUserRegistered._id,
         email: fanflinsUserRegistered.email,
-        name: fanflinsUserRegistered.name,
+        username: fanflinsUserRegistered.username,
       });
     });
   });

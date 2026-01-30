@@ -47,7 +47,7 @@ describe("Given the POST /auth/login endpoint", () => {
       expect(response.status).toBe(statusCode.OK);
       expect(body.user).toMatchObject({
         email: fanflinsNewUser.email,
-        name: fanflinsNewUser.name,
+        username: fanflinsNewUser.username,
       });
       expect(body.token).toBeDefined();
     });

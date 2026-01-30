@@ -19,7 +19,7 @@ export const registerUser = async (dataUser: IUserCreate) => {
 
   return {
     token,
-    user: { id: newUser._id, email: newUser.email, name: newUser.name },
+    user: { id: newUser._id, email: newUser.email, username: newUser.username },
   };
 };
 
@@ -47,7 +47,7 @@ export const loginUser = async (dataUser: UserLogin) => {
     user: {
       id: existingUser._id,
       email: existingUser.email,
-      name: existingUser.name,
+      username: existingUser.username,
     },
   };
 };
