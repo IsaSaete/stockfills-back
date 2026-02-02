@@ -31,5 +31,12 @@ class AuthController implements AuthControllerStructure {
       next(error);
     }
   };
+
+  public verifyToken = async (req: Request, res: Response): Promise<void> => {
+    res.status(statusCode.OK).json({
+      user: req.user,
+      token: req.header("Authorization")?.replace("Bearer ", ""),
+    });
+  };
 }
 export default AuthController;
