@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { FilamentStructure } from "../types/types.js";
+import { FilamentDocument } from "../types/types.js";
 
-const filamentSchema = new Schema<FilamentStructure>(
+const filamentSchema = new Schema<FilamentDocument>(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -12,7 +12,18 @@ const filamentSchema = new Schema<FilamentStructure>(
     brand: { type: String, required: true },
     material: {
       type: String,
-      enum: ["PLA", "PETG", "ABS", "TPU", "NYLON", "PLA_WOOD", "OTHER"],
+      enum: [
+        "PLA",
+        "ABS",
+        "ASA",
+        "PETG",
+        "TPU",
+        "PET",
+        "NYLON",
+        "PLA_WOOD",
+        "FLEXIBLE",
+        "OTHER",
+      ],
       required: true,
     },
     color: { type: String, required: true },
@@ -25,10 +36,9 @@ const filamentSchema = new Schema<FilamentStructure>(
     purchaseUrl: { type: String },
     notes: { type: String },
     isFavorite: { type: Boolean, default: false },
-    referenceCode: { type: String },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
 
-export const Filament = model<FilamentStructure>("Filament", filamentSchema);
+export const Filament = model<FilamentDocument>("Filament", filamentSchema);

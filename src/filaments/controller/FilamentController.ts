@@ -2,6 +2,7 @@ import { Request, NextFunction } from "express";
 import { FilamensControllerStructure, FilamentsResponse } from "./types.js";
 import { FilamentService } from "../service/FilamentService.js";
 import statusCode from "../../utils/globals/globals.js";
+import { mapFilamentToDto } from "../mapper/filamentMapper.js";
 
 const filamentService = new FilamentService();
 
@@ -15,7 +16,9 @@ class FilamentController implements FilamensControllerStructure {
       const userId = req.user!.userId;
       const filaments = await filamentService.getUserFilaments(userId);
 
-      res.status(statusCode.OK).json({ filaments });
+      const filamentsDto = filaments.map(mapFilamentToDto);
+
+      res.status(statusCode.OK).json({ filaments: filamentsDto });
     } catch (error) {
       next(error);
     }
