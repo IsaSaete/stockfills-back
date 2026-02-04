@@ -1,18 +1,20 @@
-import { Types } from "mongoose";
+import { Types, Document } from "mongoose";
 
 export type FilamentMaterial =
   | "PLA"
-  | "PETG"
   | "ABS"
+  | "ASA"
+  | "PETG"
   | "TPU"
+  | "PET"
   | "NYLON"
   | "PLA_WOOD"
+  | "FLEXIBLE"
   | "OTHER";
 
 export type FilamentDiameter = 1.75 | 2.85;
 
-export interface FilamentStructure {
-  userId: Types.ObjectId;
+export interface Filament {
   brand: string;
   material: FilamentMaterial;
   color: string;
@@ -25,8 +27,27 @@ export interface FilamentStructure {
   purchaseUrl?: string;
   notes?: string;
   isFavorite: boolean;
-  referenceCode?: string;
   isDeleted: boolean;
+}
+
+export interface FilamentDocument extends Filament, Document {
+  userId: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
+}
+export interface FilamentDto {
+  id: string;
+  brand: string;
+  material: FilamentMaterial;
+  colorHex: string;
+  diameter: FilamentDiameter;
+  initialWeightGrams: number;
+  currentWeightGrams: number;
+  lowStockThresholdGrams: number;
+  priceEurs?: number;
+  supplier?: string;
+  purchaseUrl?: string;
+  notes?: string;
+  isFavorite: boolean;
+  createdAt: string;
 }

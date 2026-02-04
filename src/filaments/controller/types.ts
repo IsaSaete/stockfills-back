@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { FilamentStructure } from "../types/types.js";
+import { FilamentDto } from "../types/types.js";
 
 export interface FilamensControllerStructure {
   getUserFilaments: (
@@ -11,4 +11,4 @@ export interface FilamensControllerStructure {
 
 export type FilamentsResponse = Response<FilamentsBodyResponse>;
 
-export type FilamentsBodyResponse = { filaments: FilamentStructure[] };
+export type FilamentsBodyResponse = { filaments: FilamentDto[] };
