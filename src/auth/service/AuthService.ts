@@ -51,3 +51,20 @@ export const loginUser = async (dataUser: UserLogin) => {
     },
   };
 };
+
+export const verifyTokenService = async (userId: string, token: string) => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new ServerError(statusCode.NOT_FOUND, "Usuario no encontrado");
+  }
+
+  return {
+    token,
+    user: {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+    },
+  };
+};
