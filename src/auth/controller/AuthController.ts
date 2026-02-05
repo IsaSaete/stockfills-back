@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AuthControllerStructure } from "./types.js";
 import * as authService from "../service/AuthService.js";
 import statusCode from "../../utils/globals/globals.js";
+import ServerError from "../../server/serverError/serverError.js";
 
 class AuthController implements AuthControllerStructure {
   public registerUser = async (
@@ -33,10 +34,15 @@ class AuthController implements AuthControllerStructure {
   };
 
   public verifyToken = async (req: Request, res: Response): Promise<void> => {
-    res.status(statusCode.OK).json({
-      user: req.user,
-      token: req.header("Authorization")?.replace("Bearer ", ""),
-    });
+    const token = req.header("Authorization")?.replace("Bearer ", "");
+
+    if (!req.user?.userId || !token) {
+      throw new ServerError(statusCode.UNAUTHORIZED, "Verificación errónea");
+    }
+
+    const user = await authService.verifyTokenService(req.user.userId, token);
+
+    res.status(statusCode.OK).json(user);
   };
 }
 export default AuthController;
