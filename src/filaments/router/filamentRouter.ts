@@ -10,4 +10,6 @@ filamentRouter.use(authMiddleware);
 
 filamentRouter.get("/", filamentController.getUserFilaments);
 
+filamentRouter.post("/", filamentController.createNewFilament);
+
 export default filamentRouter;
