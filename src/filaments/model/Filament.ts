@@ -41,4 +41,7 @@ const filamentSchema = new Schema<FilamentDocument>(
   { timestamps: true },
 );
 
-export const Filament = model<FilamentDocument>("Filament", filamentSchema);
+export const FilamentModel = model<FilamentDocument>(
+  "Filament",
+  filamentSchema,
+);
