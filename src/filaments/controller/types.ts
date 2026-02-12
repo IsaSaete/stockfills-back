@@ -1,10 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { FilamentDto } from "../types/types.js";
+import { CreateFilamentDTo, FilamentDto } from "../types/types.js";
 
-export interface FilamensControllerStructure {
+export interface FilamentsControllerStructure {
   getUserFilaments: (
     req: Request,
     res: FilamentsResponse,
+    next: NextFunction,
+  ) => Promise<void>;
+  createNewFilament: (
+    req: FilamentRequest,
+    res: FilamentResponse,
     next: NextFunction,
   ) => Promise<void>;
 }
@@ -12,3 +17,16 @@ export interface FilamensControllerStructure {
 export type FilamentsResponse = Response<FilamentsBodyResponse>;
 
 export type FilamentsBodyResponse = { filaments: FilamentDto[] };
+
+export type FilamentResponse = Response<FilamentBodyResponse>;
+
+export type FilamentBodyResponse = { filament: FilamentDto };
+
+export type FilamentRequest = Request<
+  Record<string, unknown>,
+  Record<string, unknown>,
+  FilamentBody,
+  Record<string, unknown>
+>;
+
+export type FilamentBody = { filament: CreateFilamentDTo };

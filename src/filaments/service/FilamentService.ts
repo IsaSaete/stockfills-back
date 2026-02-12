@@ -1,15 +1,25 @@
 import { Types } from "mongoose";
-import { Filament } from "../model/Filament.js";
-import { FilamentDocument } from "../types/types.js";
+import { Filament, FilamentDocument } from "../types/types.js";
 import { FilamentServiceStructure } from "./types.js";
+import { FilamentModel } from "../model/Filament.js";
 
 export class FilamentService implements FilamentServiceStructure {
   public getUserFilaments = async (
     userId: string,
   ): Promise<FilamentDocument[]> => {
-    return Filament.find({
+    return FilamentModel.find({
       userId: new Types.ObjectId(userId),
       isDeleted: false,
+    });
+  };
+
+  public createNewFilament = async (
+    userId: string,
+    newFilament: Filament,
+  ): Promise<FilamentDocument> => {
+    return FilamentModel.create({
+      ...newFilament,
+      userId,
     });
   };
 }

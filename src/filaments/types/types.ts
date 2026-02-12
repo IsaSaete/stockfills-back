@@ -51,3 +51,16 @@ export interface FilamentDto {
   isFavorite: boolean;
   createdAt: string;
 }
+
+export interface CreateFilamentDTo {
+  brand: string;
+  material: FilamentMaterial;
+  color: string;
+  diameter: FilamentDiameter;
+  initialWeightGrams: number;
+  priceEurs?: number;
+  supplier?: string;
+  purchaseUrl?: string;
+  notes?: string;
+  isFavorite: boolean;
+}
