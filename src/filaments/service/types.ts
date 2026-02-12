@@ -6,4 +6,8 @@ export interface FilamentServiceStructure {
     userId: string,
     newFilament: Filament,
   ) => Promise<FilamentDocument>;
+  toggleFavorite: (
+    userId: string,
+    filamentId: string,
+  ) => Promise<FilamentDocument>;
 }
