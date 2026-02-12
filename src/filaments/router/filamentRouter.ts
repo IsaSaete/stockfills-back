@@ -12,4 +12,9 @@ filamentRouter.get("/", filamentController.getUserFilaments);
 
 filamentRouter.post("/", filamentController.createNewFilament);
 
+filamentRouter.patch(
+  "/:filamentId/favorite",
+  filamentController.toggleFavorite,
+);
+
 export default filamentRouter;
