@@ -55,6 +55,28 @@ class FilamentController implements FilamentsControllerStructure {
       next(error);
     }
   };
+
+  public toggleFavorite = async (
+    req: FilamentRequest,
+    res: FilamentResponse,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { filamentId } = req.params;
+      const userId = req.user!.userId;
+
+      const updateFilament = await filamentService.toggleFavorite(
+        userId,
+        filamentId,
+      );
+
+      const filamentDto = mapFilamentToDto(updateFilament);
+
+      res.status(statusCode.OK).json({ filament: filamentDto });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default FilamentController;

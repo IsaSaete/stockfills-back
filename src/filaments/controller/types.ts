@@ -12,6 +12,11 @@ export interface FilamentsControllerStructure {
     res: FilamentResponse,
     next: NextFunction,
   ) => Promise<void>;
+  toggleFavorite: (
+    req: FilamentRequest,
+    res: FilamentResponse,
+    next: NextFunction,
+  ) => Promise<void>;
 }
 
 export type FilamentsResponse = Response<FilamentsBodyResponse>;
@@ -22,8 +27,10 @@ export type FilamentResponse = Response<FilamentBodyResponse>;
 
 export type FilamentBodyResponse = { filament: FilamentDto };
 
+export type FilamentParams = { filamentId: string };
+
 export type FilamentRequest = Request<
-  Record<string, unknown>,
+  FilamentParams,
   Record<string, unknown>,
   FilamentBody,
   Record<string, unknown>
