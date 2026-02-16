@@ -26,6 +26,21 @@ const filamentSchema = new Schema<FilamentDocument>(
       ],
       required: true,
     },
+    customMaterial: {
+      type: String,
+      required: function (this: FilamentDocument) {
+        return this.material === "OTHER";
+      },
+      validate: {
+        validator: function (this: FilamentDocument, value: string) {
+          if (this.material === "OTHER") {
+            return Boolean(value && value.trim().length > 0);
+          }
+          return true;
+        },
+        message: "Custom material must be provided when material is OTHER",
+      },
+    },
     color: { type: String, required: true },
     diameter: { type: Number, enum: [1.75, 2.85], default: 1.75 },
     initialWeightGrams: { type: Number, required: true, min: 1 },
@@ -40,6 +55,13 @@ const filamentSchema = new Schema<FilamentDocument>(
   },
   { timestamps: true },
 );
+
+filamentSchema.pre("validate", function (next) {
+  if (this.material !== "OTHER") {
+    this.customMaterial = undefined;
+  }
+  next();
+});
 
 export const FilamentModel = model<FilamentDocument>(
   "Filament",

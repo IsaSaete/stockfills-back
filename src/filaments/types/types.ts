@@ -17,6 +17,7 @@ export type FilamentDiameter = 1.75 | 2.85;
 export interface Filament {
   brand: string;
   material: FilamentMaterial;
+  customMaterial?: string;
   color: string;
   diameter: FilamentDiameter;
   initialWeightGrams: number;
@@ -39,6 +40,7 @@ export interface FilamentDto {
   id: string;
   brand: string;
   material: FilamentMaterial;
+  customMaterial?: string;
   colorHex: string;
   diameter: FilamentDiameter;
   initialWeightGrams: number;
@@ -55,6 +57,7 @@ export interface FilamentDto {
 export interface CreateFilamentDTo {
   brand: string;
   material: FilamentMaterial;
+  customMaterial?: string;
   color: string;
   diameter: FilamentDiameter;
   initialWeightGrams: number;
