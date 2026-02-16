@@ -11,6 +11,7 @@ export const mapFilamentToDto = (filament: FilamentDocument): FilamentDto => {
     id: filament._id.toString(),
     brand: capitalize(filament.brand),
     material: filament.material,
+    customMaterial: capitalize(filament.customMaterial),
     colorHex: filament.color,
     diameter: filament.diameter,
     initialWeightGrams: filament.initialWeightGrams,

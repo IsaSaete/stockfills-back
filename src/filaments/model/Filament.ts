@@ -28,18 +28,6 @@ const filamentSchema = new Schema<FilamentDocument>(
     },
     customMaterial: {
       type: String,
-      required: function (this: FilamentDocument) {
-        return this.material === "OTHER";
-      },
-      validate: {
-        validator: function (this: FilamentDocument, value: string) {
-          if (this.material === "OTHER") {
-            return Boolean(value && value.trim().length > 0);
-          }
-          return true;
-        },
-        message: "Custom material must be provided when material is OTHER",
-      },
     },
     color: { type: String, required: true },
     diameter: { type: Number, enum: [1.75, 2.85], default: 1.75 },

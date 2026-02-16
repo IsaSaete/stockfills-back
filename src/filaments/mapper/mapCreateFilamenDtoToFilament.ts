@@ -6,6 +6,10 @@ export const mapCreateFilamenDtoToFilament = (
   return {
     brand: createFilamentDto.brand,
     material: createFilamentDto.material,
+    customMaterial:
+      createFilamentDto.material === "OTHER"
+        ? createFilamentDto.customMaterial
+        : undefined,
     color: createFilamentDto.color,
     diameter: createFilamentDto.diameter,
     initialWeightGrams: createFilamentDto.initialWeightGrams,
