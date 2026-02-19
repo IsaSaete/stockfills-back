@@ -17,6 +17,11 @@ export interface FilamentsControllerStructure {
     res: FilamentResponse,
     next: NextFunction,
   ) => Promise<void>;
+  getFilamentById: (
+    req: FilamentRequest,
+    res: FilamentResponse,
+    next: NextFunction,
+  ) => Promise<void>;
 }
 
 export type FilamentsResponse = Response<FilamentsBodyResponse>;

@@ -77,6 +77,28 @@ class FilamentController implements FilamentsControllerStructure {
       next(error);
     }
   };
+
+  public getFilamentById = async (
+    req: FilamentRequest,
+    res: FilamentResponse,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { filamentId } = req.params;
+      const userId = req.user!.userId;
+
+      const findFilament = await filamentService.getFilamentById(
+        userId,
+        filamentId,
+      );
+
+      const filamentDto = mapFilamentToDto(findFilament);
+
+      res.status(statusCode.OK).json({ filament: filamentDto });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default FilamentController;
