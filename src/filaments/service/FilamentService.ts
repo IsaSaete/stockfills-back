@@ -48,4 +48,24 @@ export class FilamentService implements FilamentServiceStructure {
 
     return updatedFilament;
   };
+
+  public getFilamentById = async (
+    userId: string,
+    filamentId: string,
+  ): Promise<FilamentDocument> => {
+    const filament = await FilamentModel.findById(filamentId);
+
+    if (!filament) {
+      throw new ServerError(statusCode.NOT_FOUND, "Filamento no encontrado");
+    }
+
+    if (filament.userId.toString() !== userId) {
+      throw new ServerError(
+        statusCode.UNAUTHORIZED,
+        "No tienes permiso para modificar este filamento",
+      );
+    }
+
+    return filament;
+  };
 }
