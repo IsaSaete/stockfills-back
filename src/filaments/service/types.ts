@@ -10,4 +10,8 @@ export interface FilamentServiceStructure {
     userId: string,
     filamentId: string,
   ) => Promise<FilamentDocument>;
+  getFilamentById: (
+    userId: string,
+    filamentId: string,
+  ) => Promise<FilamentDocument>;
 }
