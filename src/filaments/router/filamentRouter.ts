@@ -17,4 +17,6 @@ filamentRouter.patch(
   filamentController.toggleFavorite,
 );
 
+filamentRouter.get("/:filamentId", filamentController.getFilamentById);
+
 export default filamentRouter;
