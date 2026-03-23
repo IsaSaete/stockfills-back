@@ -5,6 +5,8 @@ export const mapPrintingHistoryToDtoWithFilament = (
   printingHistory: PrintingHistoryDocument,
   filament: FilamentDocument,
 ): PrintingHistoryDto => {
+  const filamentAtPrint = printingHistory.filamentAtPrint;
+
   return {
     id: printingHistory._id.toString(),
     pieceName: printingHistory.pieceName,
@@ -15,11 +17,12 @@ export const mapPrintingHistoryToDtoWithFilament = (
     createdAt: printingHistory.createdAt.toISOString(),
     filament: {
       id: filament._id.toString(),
-      brand: filament.brand,
-      material: filament.material,
-      customMaterial: filament.customMaterial,
-      colorHex: filament.color,
-      diameter: filament.diameter,
+      brand: filamentAtPrint.brand,
+      material: filamentAtPrint.material,
+      customMaterial: filamentAtPrint.customMaterial,
+      colorHex: filamentAtPrint.colorHex,
+      diameter: filamentAtPrint.diameter,
+      priceEurs: filamentAtPrint.priceEurs,
     },
   };
 };
