@@ -7,6 +7,7 @@ import handleEndpointNotFound from "../middleware/handleEndpointNotFound/handleE
 import authRouter from "../auth/router/authRouter.js";
 import handleCors from "../middleware/handleCors/handleCors.js";
 import filamentRouter from "../filaments/router/filamentRouter.js";
+import printingHistoryRouter from "../printingHistory/router/printingHistoryRouter.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get("/", checkHealthStatus);
 app.use("/auth", authRouter);
 
 app.use("/stockfilaments", filamentRouter);
+
+app.use("/history", printingHistoryRouter);
 
 app.use(handleEndpointNotFound);
 
