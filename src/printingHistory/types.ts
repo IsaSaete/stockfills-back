@@ -8,6 +8,14 @@ export interface PrintingHistory {
   pieceName?: string;
   gramsConsumed: number;
   costPerPiece?: number;
+  filamentAtPrint: {
+    brand: string;
+    material: FilamentMaterial;
+    customMaterial?: string;
+    colorHex: string;
+    diameter: FilamentDiameter;
+    priceEurs?: number;
+  };
   notes?: string;
   imageUrl?: string;
   isDeleted: boolean;
@@ -35,6 +43,7 @@ export interface PrintingHistoryDto {
     customMaterial?: string;
     colorHex: string;
     diameter: FilamentDiameter;
+    priceEurs?: number;
   };
 }
 
