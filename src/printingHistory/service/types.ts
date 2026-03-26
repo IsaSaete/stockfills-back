@@ -7,9 +7,26 @@ export interface PrintingHistoryServiceStructure {
     filamentId: string,
     printingHistory: CreatePrintingHistoryDto,
   ) => Promise<ConsumeFilamentServiceResponse>;
+  getPrintingHistoryByUserId: (
+    userId: string,
+    page: number,
+    limit: number,
+  ) => Promise<PrintingHistoryHistoryServiceResponse>;
 }
 
 export interface ConsumeFilamentServiceResponse {
   printingEntry: PrintingHistoryDocument;
   filamentUpdated: FilamentDocument;
+}
+
+export interface PrintingHistoryHistoryServiceResponse {
+  printingEntries: PrintingHistoryDocument[];
+  pagination: {
+    totalItems: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }
