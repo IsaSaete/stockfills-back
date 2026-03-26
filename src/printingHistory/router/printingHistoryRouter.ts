@@ -13,4 +13,9 @@ printingHistoryRouter.post(
   printingHistoryController.consumeFilament,
 );
 
+printingHistoryRouter.get(
+  "/",
+  printingHistoryController.getPrintingHistoryByUserId,
+);
+
 export default printingHistoryRouter;

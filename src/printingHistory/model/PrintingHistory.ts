@@ -62,6 +62,7 @@ const printingHistorySchema = new Schema<PrintingHistoryDocument>(
       type: String,
       default: null,
     },
+    isDeleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
