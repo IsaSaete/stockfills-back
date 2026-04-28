@@ -12,8 +12,10 @@ export const mapPrintingHistoryToDtoWithFilament = (
     pieceName: printingHistory.pieceName,
     gramsConsumed: printingHistory.gramsConsumed,
     costPerPiece: printingHistory.costPerPiece,
+    status: printingHistory.status ?? "PENDING",
     notes: printingHistory.notes,
     imageUrl: printingHistory.imageUrl,
+    imagePublicId: printingHistory.imagePublicId,
     createdAt: printingHistory.createdAt.toISOString(),
     filament: {
       id: filament._id.toString(),

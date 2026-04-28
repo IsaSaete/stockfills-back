@@ -4,10 +4,13 @@ import {
   FilamentMaterial,
 } from "../filaments/types/types.js";
 
+export type PrintingHistoryStatus = "PENDING" | "COMPLETED" | "FAILED";
+
 export interface PrintingHistory {
   pieceName?: string;
   gramsConsumed: number;
   costPerPiece?: number;
+  status: PrintingHistoryStatus;
   filamentAtPrint: {
     brand: string;
     material: FilamentMaterial;
@@ -18,6 +21,7 @@ export interface PrintingHistory {
   };
   notes?: string;
   imageUrl?: string;
+  imagePublicId?: string;
   isDeleted: boolean;
 }
 
@@ -33,8 +37,10 @@ export interface PrintingHistoryDto {
   pieceName?: string;
   gramsConsumed: number;
   costPerPiece?: number;
+  status: PrintingHistoryStatus;
   notes?: string;
   imageUrl?: string;
+  imagePublicId?: string;
   createdAt: string;
   filament: {
     id: string;
@@ -51,4 +57,12 @@ export interface CreatePrintingHistoryDto {
   gramsConsumed: number;
   pieceName?: string;
   notes?: string;
+}
+
+export interface UpdatePrintingHistoryDto {
+  pieceName?: string;
+  status?: PrintingHistoryStatus;
+  notes?: string;
+  imageUrl?: string;
+  imagePublicId?: string;
 }
