@@ -3,13 +3,18 @@ import { FilamentModel } from "../../filaments/model/Filament.js";
 import ServerError from "../../server/serverError/serverError.js";
 import statusCode from "../../utils/globals/globals.js";
 import PrintingHistory from "../model/PrintingHistory.js";
-import { CreatePrintingHistoryDto, PrintingHistoryDocument } from "../types.js";
+import {
+  CreatePrintingHistoryDto,
+  PrintingHistoryDocument,
+  UpdatePrintingHistoryDto,
+} from "../types.js";
 import {
   ConsumeFilamentServiceResponse,
   PrintingHistoryHistoryServiceResponse,
   PrintingHistoryServiceStructure,
 } from "./types.js";
 import { FilamentDocument } from "../../filaments/types/types.js";
+import cloudinary from "./cloudinaryClient.js";
 
 export class PrintingHistoryService implements PrintingHistoryServiceStructure {
   public consumeFilamentAndCreateHistory = async (
@@ -60,8 +65,10 @@ export class PrintingHistoryService implements PrintingHistoryServiceStructure {
         const printingHistoryToCreate = {
           pieceName: printingHistory.pieceName || undefined,
           gramsConsumed: printingHistory.gramsConsumed,
+          status: "PENDING" as const,
           notes: printingHistory.notes || undefined,
           imageUrl: undefined,
+          imagePublicId: undefined,
           isDeleted: false,
           userId: new mongoose.Types.ObjectId(userId),
           filamentId: new mongoose.Types.ObjectId(filamentId),
@@ -134,5 +141,81 @@ export class PrintingHistoryService implements PrintingHistoryServiceStructure {
         hasPreviousPage,
       },
     };
+  };
+
+  public updatePrintingHistoryById = async (
+    userId: string,
+    printingHistoryId: string,
+    updatePrintingHistoryDto: UpdatePrintingHistoryDto,
+  ): Promise<PrintingHistoryDocument> => {
+    const printingHistory = await PrintingHistory.findOne({
+      _id: printingHistoryId,
+      userId: new mongoose.Types.ObjectId(userId),
+      isDeleted: false,
+    });
+
+    if (!printingHistory) {
+      throw new ServerError(
+        statusCode.NOT_FOUND,
+        "Registro de impresión no encontrado",
+      );
+    }
+
+    if (updatePrintingHistoryDto.pieceName !== undefined) {
+      printingHistory.pieceName =
+        updatePrintingHistoryDto.pieceName.trim() || undefined;
+    }
+
+    if (updatePrintingHistoryDto.status !== undefined) {
+      printingHistory.status = updatePrintingHistoryDto.status;
+    }
+
+    if (updatePrintingHistoryDto.notes !== undefined) {
+      printingHistory.notes =
+        updatePrintingHistoryDto.notes.trim() || undefined;
+    }
+
+    if (updatePrintingHistoryDto.imageUrl !== undefined) {
+      const newImageUrl = updatePrintingHistoryDto.imageUrl.trim() || undefined;
+      const newImagePublicId =
+        updatePrintingHistoryDto.imagePublicId?.trim() || undefined;
+      const currentImagePublicId = printingHistory.imagePublicId;
+
+      if (currentImagePublicId && currentImagePublicId !== newImagePublicId) {
+        await this.deleteImageByPublicId(currentImagePublicId);
+      }
+
+      printingHistory.imageUrl = newImageUrl;
+      printingHistory.imagePublicId = newImagePublicId;
+    }
+
+    await printingHistory.save();
+
+    return printingHistory;
+  };
+
+  public uploadImage = async (
+    imageBuffer: Buffer,
+    mimeType: string,
+  ): Promise<{ imageUrl: string; imagePublicId: string }> => {
+    const dataUri = `data:${mimeType};base64,${imageBuffer.toString("base64")}`;
+
+    const uploadResponse = await cloudinary.uploader.upload(dataUri, {
+      folder: "stockfils/history",
+      resource_type: "image",
+    });
+
+    return {
+      imageUrl: uploadResponse.secure_url,
+      imagePublicId: uploadResponse.public_id,
+    };
+  };
+
+  private deleteImageByPublicId = async (
+    imagePublicId: string,
+  ): Promise<void> => {
+    await cloudinary.uploader.destroy(imagePublicId, {
+      resource_type: "image",
+    });
   };
 }

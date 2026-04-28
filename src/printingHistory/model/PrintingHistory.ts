@@ -31,6 +31,12 @@ const printingHistorySchema = new Schema<PrintingHistoryDocument>(
       default: null,
       min: 0,
     },
+    status: {
+      type: String,
+      enum: ["PENDING", "COMPLETED", "FAILED"],
+      default: "PENDING",
+      required: true,
+    },
     filamentAtPrint: {
       brand: { type: String, required: true },
       material: {
@@ -59,6 +65,10 @@ const printingHistorySchema = new Schema<PrintingHistoryDocument>(
       default: null,
     },
     imageUrl: {
+      type: String,
+      default: null,
+    },
+    imagePublicId: {
       type: String,
       default: null,
     },
