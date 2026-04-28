@@ -143,6 +143,26 @@ export class PrintingHistoryService implements PrintingHistoryServiceStructure {
     };
   };
 
+  public getPrintingHistoryById = async (
+    userId: string,
+    printingHistoryId: string,
+  ): Promise<PrintingHistoryDocument> => {
+    const printingHistory = await PrintingHistory.findOne({
+      _id: printingHistoryId,
+      userId: new mongoose.Types.ObjectId(userId),
+      isDeleted: false,
+    });
+
+    if (!printingHistory) {
+      throw new ServerError(
+        statusCode.NOT_FOUND,
+        "Registro de impresión no encontrado",
+      );
+    }
+
+    return printingHistory;
+  };
+
   public updatePrintingHistoryById = async (
     userId: string,
     printingHistoryId: string,

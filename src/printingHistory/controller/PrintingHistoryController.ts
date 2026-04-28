@@ -4,6 +4,8 @@ import { validateCreatePrintingHistoryDto } from "../validator/validateCreatePri
 import {
   ConsumeFilamentRequest,
   ConsumeFilamentResponse,
+  GetPrintingHistoryByIdRequest,
+  GetPrintingHistoryByIdResponse,
   PrintingHistoryControllerStructure,
   PrintingHistoryRequest,
   PrintingHistoryResponse,
@@ -14,7 +16,10 @@ import {
 } from "./types.js";
 import statusCode from "../../utils/globals/globals.js";
 import { mapPrintingHistoryToDtoWithFilament } from "../mapper/mapPrintingHistoryToDtoWithFilament.js";
-import { mapPrintingHistoryDocumentsToDtos } from "../mapper/mapPrintingHistoryDocumentToDto.js";
+import {
+  mapPrintingHistoryDocumentToDto,
+  mapPrintingHistoryDocumentsToDtos,
+} from "../mapper/mapPrintingHistoryDocumentToDto.js";
 import { validatePrintingHistoryQuery } from "../validator/validatePrintingHistoryQuery.js";
 import { validateUpdatePrintingHistoryDto } from "../validator/validateUpdatePrintingHistoryDto.js";
 import ServerError from "../../server/serverError/serverError.js";
@@ -98,9 +103,31 @@ class PrintingHistoryController implements PrintingHistoryControllerStructure {
           updatePrintingHistoryDto,
         );
 
-      const printingHistoryDto = mapPrintingHistoryDocumentsToDtos([
-        printingHistory,
-      ])[0];
+      const printingHistoryDto =
+        mapPrintingHistoryDocumentToDto(printingHistory);
+
+      res.status(statusCode.OK).json({
+        printingEntry: printingHistoryDto,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getPrintingHistoryById = async (
+    req: GetPrintingHistoryByIdRequest,
+    res: GetPrintingHistoryByIdResponse,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const printingHistory =
+        await printingHistoryService.getPrintingHistoryById(
+          req.user!.userId,
+          req.params.printingHistoryId,
+        );
+
+      const printingHistoryDto =
+        mapPrintingHistoryDocumentToDto(printingHistory);
 
       res.status(statusCode.OK).json({
         printingEntry: printingHistoryDto,

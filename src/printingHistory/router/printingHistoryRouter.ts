@@ -19,6 +19,11 @@ printingHistoryRouter.get(
   printingHistoryController.getPrintingHistoryByUserId,
 );
 
+printingHistoryRouter.get(
+  "/:printingHistoryId",
+  printingHistoryController.getPrintingHistoryById,
+);
+
 printingHistoryRouter.patch(
   "/:printingHistoryId",
   printingHistoryController.updatePrintingHistoryById,
