@@ -16,6 +16,11 @@ export interface PrintingHistoryControllerStructure {
     res: PrintingHistoryResponse,
     next: NextFunction,
   ) => Promise<void>;
+  getPrintingHistoryById: (
+    req: GetPrintingHistoryByIdRequest,
+    res: GetPrintingHistoryByIdResponse,
+    next: NextFunction,
+  ) => Promise<void>;
   updatePrintingHistoryById: (
     req: UpdatePrintingHistoryRequest,
     res: UpdatePrintingHistoryResponse,
@@ -68,6 +73,19 @@ export type PrintingHistoryBodyResponse = {
 };
 
 export type PrintingHistoryResponse = Response<PrintingHistoryBodyResponse>;
+
+export type GetPrintingHistoryByIdParams = { printingHistoryId: string };
+export type GetPrintingHistoryByIdRequest = Request<
+  GetPrintingHistoryByIdParams,
+  Record<string, unknown>,
+  Record<string, unknown>,
+  Record<string, unknown>
+>;
+export type GetPrintingHistoryByIdBodyResponse = {
+  printingEntry: PrintingHistoryDto;
+};
+export type GetPrintingHistoryByIdResponse =
+  Response<GetPrintingHistoryByIdBodyResponse>;
 
 export type UpdatePrintingHistoryParams = { printingHistoryId: string };
 export type UpdatePrintingHistoryRequest = Request<

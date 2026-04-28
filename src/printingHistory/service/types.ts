@@ -16,6 +16,10 @@ export interface PrintingHistoryServiceStructure {
     page: number,
     limit: number,
   ) => Promise<PrintingHistoryHistoryServiceResponse>;
+  getPrintingHistoryById: (
+    userId: string,
+    printingHistoryId: string,
+  ) => Promise<PrintingHistoryDocument>;
   updatePrintingHistoryById: (
     userId: string,
     printingHistoryId: string,
