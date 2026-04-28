@@ -1,5 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { CreatePrintingHistoryDto, PrintingHistoryDto } from "../types.js";
+import {
+  CreatePrintingHistoryDto,
+  PrintingHistoryDto,
+  UpdatePrintingHistoryDto,
+} from "../types.js";
 
 export interface PrintingHistoryControllerStructure {
   consumeFilament: (
@@ -10,6 +14,16 @@ export interface PrintingHistoryControllerStructure {
   getPrintingHistoryByUserId: (
     req: PrintingHistoryRequest,
     res: PrintingHistoryResponse,
+    next: NextFunction,
+  ) => Promise<void>;
+  updatePrintingHistoryById: (
+    req: UpdatePrintingHistoryRequest,
+    res: UpdatePrintingHistoryResponse,
+    next: NextFunction,
+  ) => Promise<void>;
+  uploadImage: (
+    req: UploadPrintingImageRequest,
+    res: UploadPrintingImageResponse,
     next: NextFunction,
   ) => Promise<void>;
 }
@@ -54,3 +68,26 @@ export type PrintingHistoryBodyResponse = {
 };
 
 export type PrintingHistoryResponse = Response<PrintingHistoryBodyResponse>;
+
+export type UpdatePrintingHistoryParams = { printingHistoryId: string };
+export type UpdatePrintingHistoryRequest = Request<
+  UpdatePrintingHistoryParams,
+  Record<string, unknown>,
+  { printingHistory: UpdatePrintingHistoryDto },
+  Record<string, unknown>
+>;
+export type UpdatePrintingHistoryBodyResponse = {
+  printingEntry: PrintingHistoryDto;
+};
+export type UpdatePrintingHistoryResponse =
+  Response<UpdatePrintingHistoryBodyResponse>;
+
+export type UploadPrintingImageBodyResponse = {
+  imageUrl: string;
+  imagePublicId: string;
+};
+export type UploadPrintingImageRequest = Request & {
+  file?: Express.Multer.File;
+};
+export type UploadPrintingImageResponse =
+  Response<UploadPrintingImageBodyResponse>;

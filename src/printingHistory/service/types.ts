@@ -1,5 +1,9 @@
 import { FilamentDocument } from "../../filaments/types/types.js";
-import { CreatePrintingHistoryDto, PrintingHistoryDocument } from "../types.js";
+import {
+  CreatePrintingHistoryDto,
+  PrintingHistoryDocument,
+  UpdatePrintingHistoryDto,
+} from "../types.js";
 
 export interface PrintingHistoryServiceStructure {
   consumeFilamentAndCreateHistory: (
@@ -12,6 +16,15 @@ export interface PrintingHistoryServiceStructure {
     page: number,
     limit: number,
   ) => Promise<PrintingHistoryHistoryServiceResponse>;
+  updatePrintingHistoryById: (
+    userId: string,
+    printingHistoryId: string,
+    updatePrintingHistoryDto: UpdatePrintingHistoryDto,
+  ) => Promise<PrintingHistoryDocument>;
+  uploadImage: (
+    imageBuffer: Buffer,
+    mimeType: string,
+  ) => Promise<{ imageUrl: string; imagePublicId: string }>;
 }
 
 export interface ConsumeFilamentServiceResponse {
